@@ -38,20 +38,7 @@ package pk2 {
 			var flashVars:Object = loaderInfo.parameters;
 			Configuration.LOGIN = ( flashVars[ "login" ] == "2" ) ? true : false;
 			
-			/*
-			for (var name_str:String in flashVars) {
-			  ExternalInterface.call ( "console.log", "flashVars.islogin " + name_str + " : " + flashVars[ name_str ] );
-			}
-			if ( url.indexOf ( "www.kyoraku.co.jp" ) != -1 ) {
-				Configuration.BASE_PATH = "http://d3in86ewjp8wu6.cloudfront.net/www/";
-			}
-			if ( url.indexOf ( "test.kyoraku.co.jp" ) != -1 ) {
-				Configuration.BASE_PATH = "http://ec2-54-178-162-93.ap-northeast-1.compute.amazonaws.com/test/";
-			}
-			if ( url.indexOf ( "robot.co.jp" ) != -1 ) {
-				Configuration.BASE_PATH = "";
-			}
-			*/
+			
 			// プリローダーが読み込むファイルと、実行形式を指定します。
 			super( new URLRequest( Configuration.BASE_PATH + "index.swf" ), false, CommandExecutor );
 			Security.allowDomain("*");
@@ -69,30 +56,7 @@ package pk2 {
 		override protected function atReady():void {
 		}
 		
-		/**
-		 * オブジェクトが読み込みを開始した瞬間に送出されます。
-		 * このイベント処理の実行中には、ExecutorObject を使用した非同期処理が行えます。
-		 */
-		override protected function atCastLoadStart():void {
-			addCommand(
-				new AddChild ( stage, loading ),
-				new Func ( loading.open )
-			);
-			
-		}
 		
-		/**
-		 * ダウンロード処理を実行中にデータを受信したときに送出されます。
-		 */
-		override protected function atProgress():void {
-			loading.loaded = this.bytesLoaded;
-			loading.loadTotal = this.bytesTotal;
-		}
-		
-		/**
-		 * オブジェクトが読み込みを完了した瞬間に送出されます。
-		 * このイベント処理の実行中には、ExecutorObject を使用した非同期処理が行えます。
-		 */
 		override protected function atCastLoadComplete():void {
 			addCommand(
 				new Listen ( loading,  LoaderContainer.LOAD_INIT ),
